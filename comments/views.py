@@ -23,10 +23,3 @@ class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = CommentDetailSerializer
     queryset = Comment.objects.all()
-
-    def delete(self, request, pk):
-        comment = self.get_object(pk)
-        comment.delete()
-        return Response(
-            status=status.HTTP_204_NO_CONTENT
-        )
