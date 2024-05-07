@@ -62,13 +62,10 @@ DEBUG = "DEV" in os.environ
 
 
 ALLOWED_HOSTS = [
-    "8000-noahsamawi-pp5api-4k5anu0mzeu.ws-eu111.gitpod.io"
-    "localhost",
-
-    "https://pp5-apis-e3b849e62ff3.herokuapp.com/"
+    '8000-noahsamawi-pp5api-4k5anu0mzeu.ws-eu113.gitpod.io'
 ]
 
-# DEBUG = True
+#DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
