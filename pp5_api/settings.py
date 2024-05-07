@@ -64,6 +64,7 @@ DEBUG = "DEV" in os.environ
 ALLOWED_HOSTS = [
     '8000-noahsamawi-pp5api-4k5anu0mzeu.ws-eu113.gitpod.io',
     'pp5-apis-e3b849e62ff3.herokuapp.com'
+    'localhost',
 ]
 
 
@@ -99,6 +100,7 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
