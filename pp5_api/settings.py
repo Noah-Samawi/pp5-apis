@@ -105,7 +105,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'https://pp5-apis-e3b849e62ff3.herokuapp.com/']
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'https://pp5-apis-e3b849e62ff3.herokuapp.com']
+
 if "CLIENT_ORIGIN" in os.environ:
     client_origin = os.environ.get("CLIENT_ORIGIN")
     if client_origin not in CORS_ALLOWED_ORIGINS:
