@@ -60,7 +60,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = "DEV" in os.environ
 
 ALLOWED_HOSTS = [
-    '8000-noahsamawi-pp5api-4k5anu0mzeu.ws-eu113.gitpod.io',
+   '8000-noahsamawi-pp5api-2z4ut6g7b80.ws-eu111.gitpod.io',
     'localhost',
     'pp5-apis-e3b849e62ff3.herokuapp.com'
 ]
@@ -104,6 +104,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'https://pp5-apis-e3b849e62ff3.herokuapp.com']
 
