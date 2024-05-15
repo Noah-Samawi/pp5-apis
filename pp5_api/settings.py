@@ -10,13 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-import re
-import os
 from pathlib import Path
-
+import os
+import re
 import dj_database_url
 
-if os.path.exists("env.py"):
+if os.path.exists('env.py'):
     import env
 
 CLOUDINARY_STORAGE = {
@@ -47,6 +46,7 @@ REST_USE_JWT = True
 JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+JWT_AUTH_SAMESITE = 'None'
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'pp5_api.serializers.CurrentUserSerializer',
@@ -65,10 +65,20 @@ ALLOWED_HOSTS = [
   '8000-noahsamawi-pp5api-0zqi3177fwg.ws-eu111.gitpod.io',
   '3000-noahsamawi-pp5wanderwis-1wnibivnd0u.ws-eu111.gitpod.io',
   'localhost',
-  'pp5-apis-e3b849e62ff3.herokuapp.com',
-  'pp5-wander-wise-frontend-63919ac97d38.herokuapp.com,'
+#   'pp5-apis-e3b849e62ff3.herokuapp.com',
+#   'pp5-wander-wise-frontend-63919ac97d38.herokuapp.com,'
 ]
 
+if 'CLIENT_ORIGIN' in os.environ:
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CLIENT_ORIGIN')
+    ]
+else:
+     CORS_ALLOWED_ORIGIN_REGEXES = [
+         r"^https://.*\.gitpod\.io$",
+     ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -143,8 +153,10 @@ if "DEV" in os.environ:
         }
     }
 else:
-    DATABASES = {"default": dj_database_url.parse(
-                        os.environ.get("DATABASE_URL"))}
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+    print('connected')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
