@@ -110,18 +110,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
 ]
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'https://pp5-apis-e3b849e62ff3.herokuapp.com']
 
-if "CLIENT_ORIGIN" in os.environ:
-    client_origin = os.environ.get("CLIENT_ORIGIN")
-    if client_origin not in CORS_ALLOWED_ORIGINS:
-        CORS_ALLOWED_ORIGINS.append(client_origin)
-
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://.*\.gitpod\.io$",
-]
-
-CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = 'pp5_api.urls'
 
 TEMPLATES = [
