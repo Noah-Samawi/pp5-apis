@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import root_route
+from .views import root_route, logout_route
 
 urlpatterns = [
     path('', root_route),
@@ -30,4 +30,6 @@ urlpatterns = [
     path('', include('comments.urls')),
     path('', include('likes.urls')),
     path('', include('followers.urls')),
+    path('', include('notifications.urls')),
+    path('logout/', logout_route),
 ]

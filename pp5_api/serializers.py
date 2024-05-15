@@ -2,11 +2,13 @@ from dj_rest_auth.serializers import UserDetailsSerializer
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
+
 class TokenSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Token
         fields = ('key', 'user')
+
 
 class CurrentUserSerializer(UserDetailsSerializer):
     profile_id = serializers.ReadOnlyField(source='profile.id')
