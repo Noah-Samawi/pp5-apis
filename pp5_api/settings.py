@@ -19,50 +19,54 @@ import dj_database_url
 if os.path.exists("env.py"):
     import env
 
-CLOUDINARY_STORAGE = {"CLOUDINARY_URL": os.environ.get("CLOUDINARY_URL")}
-MEDIA_URL = "/media/"
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-
+CLOUDINARY_STORAGE = {
+    'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
+}
+MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        (
-            "rest_framework.authentication.SessionAuthentication"
-            if "DEV" in os.environ
-            else "dj_rest_auth.jwt_auth.JWTCookieAuthentication"
-        )
-    ],
-    "DEFAULT_PAGINATION_CLASS": (
-        "rest_framework.pagination.PageNumberPagination"
-    ),
-    "PAGE_SIZE": 10,
-    "DATETIME_FORMAT": "%d %b %Y",
+    'DEFAULT_AUTHENTICATION_CLASSES': [(
+        'rest_framework.authentication.SessionAuthentication'
+        if 'DEV' in os.environ
+        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+    )],
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DATETIME_FORMAT': '%d %b %Y',
 }
-if "DEV" not in os.environ:
-    REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = [
-        "rest_framework.renderers.JSONRenderer",
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
     ]
+
 REST_USE_JWT = True
 JWT_AUTH_SECURE = True
-JWT_AUTH_COOKIE = "my-app-auth"
-JWT_AUTH_REFRESH_COOKIE = "my-refresh-token"
-JWT_AUTH_SAMESITE = "None"
-
+JWT_AUTH_COOKIE = 'my-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 
 REST_AUTH_SERIALIZERS = {
-    "USER_DETAILS_SERIALIZER": "pp5_api.serializers.CurrentUserSerializer"
+    'USER_DETAILS_SERIALIZER': 'pp5_api.serializers.CurrentUserSerializer',
+    # 'TOKEN_SERIALIZER': 'pp5_api.serializers.TokenSerializer',
 }
 
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = "DEV" in os.environ
 
 ALLOWED_HOSTS = [
-   '8000-noahsamawi-pp5api-2z4ut6g7b80.ws-eu111.gitpod.io',
-    'localhost',
-    'pp5-apis-e3b849e62ff3.herokuapp.com'
+  '8000-noahsamawi-pp5api-0zqi3177fwg.ws-eu111.gitpod.io',
+  '3000-noahsamawi-pp5wanderwis-1wnibivnd0u.ws-eu111.gitpod.io',
+  'localhost',
+  'pp5-apis-e3b849e62ff3.herokuapp.com',
+  'pp5-wander-wise-frontend-63919ac97d38.herokuapp.com,'
 ]
 
 
@@ -78,11 +82,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'rest_framework.authtoken',
-    'dj_rest_auth',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'dj_rest_auth',
     'dj_rest_auth.registration',
     "corsheaders",
 
@@ -142,12 +146,6 @@ WSGI_APPLICATION = 'pp5_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 if "DEV" in os.environ:
     DATABASES = {
         "default": {
@@ -158,7 +156,6 @@ if "DEV" in os.environ:
 else:
     DATABASES = {"default": dj_database_url.parse(
                         os.environ.get("DATABASE_URL"))}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
