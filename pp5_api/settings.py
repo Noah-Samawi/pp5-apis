@@ -61,22 +61,27 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = "DEV" in os.environ
 
+DEBUG = 'DEV' in os.environ
+
 ALLOWED_HOSTS = [
-  '8000-noahsamawi-pp5api-0zqi3177fwg.ws-eu111.gitpod.io',
-  '3000-noahsamawi-pp5wanderwis-1wnibivnd0u.ws-eu111.gitpod.io',
-  'localhost',
-#   'pp5-apis-e3b849e62ff3.herokuapp.com',
-#   'pp5-wander-wise-frontend-63919ac97d38.herokuapp.com,'
+    os.environ.get('ALLOWED_HOST'),
+    'localhost',
 ]
 
 if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
         os.environ.get('CLIENT_ORIGIN')
     ]
-else:
-     CORS_ALLOWED_ORIGIN_REGEXES = [
-         r"^https://.*\.gitpod\.io$",
-     ]
+
+if 'CLIENT_ORIGIN_DEV' in os.environ:
+    extracted_url = re.match(
+        r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE
+    ).group(0)
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
+    ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_CREDENTIALS = True
 
