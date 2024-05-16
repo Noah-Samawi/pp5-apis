@@ -61,29 +61,18 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = "DEV" in os.environ
 
-DEBUG = 'DEV' in os.environ
-
 ALLOWED_HOSTS = [
-    os.environ.get('ALLOWED_HOST'),
-    'localhost',
+    "https://3000-noahsamawi-pp5wanderwis-1wnibivnd0u.ws-eu111.gitpod.io",
+    "8000-noahsamawi-pp5api-0zqi3177fwg.ws-eu111.gitpod.io",
+    "localhost",
+    "pp5-wander-wise-frontend-63919ac97d38.herokuapp.com",
+    "pp5-apis-e3b849e62ff3.herokuapp.com",
 ]
 
-if 'CLIENT_ORIGIN' in os.environ:
-    CORS_ALLOWED_ORIGINS = [
-        os.environ.get('CLIENT_ORIGIN')
-    ]
-
-if 'CLIENT_ORIGIN_DEV' in os.environ:
-    extracted_url = re.match(
-        r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE
-    ).group(0)
-    CORS_ALLOWED_ORIGIN_REGEXES = [
-        rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
-    ]
-
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOW_CREDENTIALS = True
+
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -126,7 +115,18 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 ]
 
-ROOT_URLCONF = 'pp5_api.urls'
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "https://caption-of-the-day-ed90d78aee19.herokuapp.com"]
+if "CLIENT_ORIGIN" in os.environ:
+    client_origin = os.environ.get("CLIENT_ORIGIN")
+    if client_origin not in CORS_ALLOWED_ORIGINS:
+        CORS_ALLOWED_ORIGINS.append(client_origin)
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.gitpod\.io$",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+ROOT_URLCONF = "pp5_api.urls"
 
 TEMPLATES = [
     {
@@ -150,6 +150,12 @@ WSGI_APPLICATION = 'pp5_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+iDATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 if "DEV" in os.environ:
     DATABASES = {
         "default": {
@@ -158,10 +164,8 @@ if "DEV" in os.environ:
         }
     }
 else:
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-    }
-    print('connected')
+    DATABASES = {"default": dj_database_url.parse(
+                        os.environ.get("DATABASE_URL"))}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
