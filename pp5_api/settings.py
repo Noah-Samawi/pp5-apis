@@ -62,7 +62,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = "DEV" in os.environ
 
 ALLOWED_HOSTS = [
-    "https://3000-noahsamawi-pp5wanderwis-1wnibivnd0u.ws-eu111.gitpod.io",
+    "3000-noahsamawi-pp5wanderwis-1wnibivnd0u.ws-eu111.gitpod.io",
     "8000-noahsamawi-pp5api-0zqi3177fwg.ws-eu111.gitpod.io",
     "localhost",
     "pp5-wander-wise-frontend-63919ac97d38.herokuapp.com",
@@ -115,6 +115,7 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 ]
 
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'https://pp5-wander-wise-frontend-63919ac97d38.herokuapp.com']
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     extracted_url = re.match(
         r'^([^.]+)', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
