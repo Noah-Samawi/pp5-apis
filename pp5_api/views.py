@@ -1,5 +1,3 @@
-# Imports
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -9,19 +7,18 @@ from .settings import (
     JWT_AUTH_SECURE,
 )
 
-
-
-@api_view()
+@api_view(['GET'])
 def root_route(request):
     return Response({
         "status": 200,
         "message": "Welcome to my PP5 Django REST Framework API"
     })
 
-
 @api_view(['POST'])
 def logout_route(request):
-    response = Response()
+    response = Response({
+        "message": "Successfully logged out"
+    })
     response.set_cookie(
         key=JWT_AUTH_COOKIE,
         value='',
