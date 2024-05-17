@@ -25,11 +25,10 @@ urlpatterns = [
     path('dj-rest-auth/logout/', logout_route),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
-    path('profiles/', include('profiles.urls')),  # Updated to include profiles app URLs
-    path('posts/', include('posts.urls')),        # Ensure similar updates for other apps
+    path('profiles/', include('profiles.urls')),
+    path('posts/', include('posts.urls')),
     path('comments/', include('comments.urls')),
     path('likes/', include('likes.urls')),
     path('followers/', include('followers.urls')),
     path('notifications/', include('notifications.urls')),
 ]
-

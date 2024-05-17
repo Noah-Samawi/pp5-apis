@@ -62,17 +62,15 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = "DEV" in os.environ
 
 ALLOWED_HOSTS = [
-    "3000-noahsamawi-pp5wanderwis-1wnibivnd0u.ws-eu111.gitpod.io",
-    "8000-noahsamawi-pp5api-0zqi3177fwg.ws-eu111.gitpod.io",
-    "localhost",
-    "pp5-wander-wise-frontend-63919ac97d38.herokuapp.com",
-    "pp5-apis-e3b849e62ff3.herokuapp.com",
+    #'3000-noahsamawi-pp5wanderwis-1wnibivnd0u.ws-eu111.gitpod.io',
+    '8000-noahsamawi-pp5api-0zqi3177fwg.ws-eu114.gitpod.io',
+    'localhost',
+    #'pp5-wander-wise-frontend-63919ac97d38.herokuapp.com',
+    'pp5-apis-e3b849e62ff3.herokuapp.com',
 ]
 
-CORS_ALLOW_CREDENTIALS = True
 
-
-# Application definition
+#Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -204,3 +202,17 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}
