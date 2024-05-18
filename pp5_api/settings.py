@@ -1,6 +1,5 @@
 from pathlib import Path
 import os
-import re
 import dj_database_url
 
 if os.path.exists('env.py'):
@@ -40,7 +39,7 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'pp5_api.serializers.CurrentUserSerializer',
 }
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY", "default-secret-key-for-dev")
 
 DEBUG = "DEV" in os.environ
 
@@ -48,6 +47,7 @@ ALLOWED_HOSTS = [
     '8000-noahsamawi-pp5apis-dcnxiuc6e2p.ws-eu111.gitpod.io',
     'localhost',
     'pp5-apis-e3b849e62ff3.herokuapp.com',
+    'your-production-domain.com',
 ]
 
 INSTALLED_APPS = [
@@ -164,6 +164,7 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -180,3 +181,13 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
+
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 3600
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
