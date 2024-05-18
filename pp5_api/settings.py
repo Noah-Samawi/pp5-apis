@@ -97,14 +97,17 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://pp5-wander-wise-frontend-63919ac97d38.herokuapp.com',
     'https://8000-noahsamawi-pp5apis-dcnxiuc6e2p.ws-eu111.gitpod.io',
+    'https://3000-noahsamawi-pp5wanderwis-tz1fm2al702.ws-eu111.gitpod.io',  # Add this origin
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://pp5-wander-wise-frontend-63919ac97d38.herokuapp.com',
     'https://8000-noahsamawi-pp5apis-dcnxiuc6e2p.ws-eu111.gitpod.io',
+    'https://3000-noahsamawi-pp5wanderwis-tz1fm2al702.ws-eu111.gitpod.io',  # Add this origin
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
 
 ROOT_URLCONF = "pp5_api.urls"
 
