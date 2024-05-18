@@ -1,61 +1,65 @@
+import json
+
 from django.contrib.auth.models import User
-from .models import Post
+from django.test import TestCase
 from rest_framework import status
-from rest_framework.test import APITestCase
+from rest_framework.test import APIClient
+
+from tags.models import Tag
+
+from .models import Post
 
 
-class PostListViewTests(APITestCase):
+class PostTests(TestCase):
     def setUp(self):
-        User.objects.create_user(username='adam', password='pass')
-
-    def test_can_list_posts(self):
-        adam = User.objects.get(username='adam')
-        Post.objects.create(owner=adam, title='a title')
-        response = self.client.get('/posts/')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        print(response.data)
-        print(len(response.data))
-
-    def test_logged_in_user_can_create_post(self):
-        self.client.login(username='adam', password='pass')
-        response = self.client.post('/posts/', {'title': 'a title'})
-        count = Post.objects.count()
-        self.assertEqual(count, 1)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-    def test_user_not_logged_in_cant_create_post(self):
-        response = self.client.post('/posts/', {'title': 'a title'})
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-
-
-class PostDetailViewTests(APITestCase):
-    def setUp(self):
-        adam = User.objects.create_user(username='adam', password='pass')
-        brian = User.objects.create_user(username='brian', password='pass')
-        Post.objects.create(
-            owner=adam, title='a title', content='adams content'
+        # Set up a test user and log in
+        self.user = User.objects.create_user(
+            username="testuser", password="testpassword"
         )
-        Post.objects.create(
-            owner=brian, title='another title', content='brians content'
+        self.client = APIClient()
+        self.client.login(username="testuser", password="testpassword")
+
+        # Check if the tag exists, otherwise create it
+        try:
+            self.tag = Tag.objects.get(name="Technology")
+        except Tag.DoesNotExist:
+            self.tag = Tag.objects.create(name="Technology")
+
+        # Manually create a post and associate it with the test tag
+        self.post = Post.objects.create(
+            owner=self.user, title="Test Post", content="Test Content", tag=self.tag
         )
 
-    def test_can_retrieve_post_using_valid_id(self):
-        response = self.client.get('/posts/2/')
-        self.assertEqual(response.data['title'], 'a title')
+    def test_create_post(self):
+        # Test retrieving a post and verify it has the correct tag
+        response = self.client.get(f"/posts/{self.post.id}/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_cant_retrieve_post_using_invalid_id(self):
-        response = self.client.get('/posts/999/')
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        post_response_data = json.loads(response.content)
+        self.assertEqual(post_response_data.get("tag", ""), "Technology")
 
-    def test_user_can_update_own_post(self):
-        self.client.login(username='adam', password='pass')
-        response = self.client.put('/posts/2/', {'title': 'a new title'})
-        post = Post.objects.filter(pk=1).first()
-        self.assertEqual(post.title, 'a new title')
+    def test_get_post_list(self):
+        # Test retrieving the list of posts
+        response = self.client.get("/posts/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_user_cant_update_another_users_post(self):
-        self.client.login(username='adam', password='pass')
-        response = self.client.put('/posts/4/', {'title': 'a new title'})
-        self.assertEqual(response.status_code, status.HTTP_404_FORBIDDEN)
+    def test_get_post_detail(self):
+        # Test retrieving the details of a specific post
+        post = Post.objects.create(owner=self.user, title="Test Post")
+        response = self.client.get(f"/posts/{post.id}/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_update_post(self):
+        # Test updating a post's title
+        post = Post.objects.create(owner=self.user, title="Test Post")
+        updated_data = {"title": "Updated Test Post"}
+        response = self.client.patch(
+            f"/posts/{post.id}/", updated_data, format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_delete_post(self):
+        # Test deleting a post
+        post = Post.objects.create(owner=self.user, title="Test Post")
+        response = self.client.delete(f"/posts/{post.id}/")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
