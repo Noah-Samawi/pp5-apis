@@ -3,14 +3,16 @@ import os
 import dj_database_url
 
 if os.path.exists('env.py'):
-    import env
+    import env as env
 
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
 }
+
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 REST_FRAMEWORK = {
@@ -19,14 +21,16 @@ REST_FRAMEWORK = {
         if 'DEV' in os.environ
         else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     )],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    'PAGE_SIZE': 30,
     'DATETIME_FORMAT': '%d %b %Y',
 }
-
 if 'DEV' not in os.environ:
-    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
-        'rest_framework.renderers.JSONRenderer',
+    REST_FRAMEWORK['DEFAULT_RENDERE_CLASSES'] = [
+        'rest_framework.rendererd.JSONRenderer',
     ]
 
 REST_USE_JWT = True
@@ -36,18 +40,21 @@ JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'pp5_api.serializers.CurrentUserSerializer',
+    "USER_DETAILS_SERIALIZER": "pp5_api.serializers.CurrentUserSerializer"
 }
 
-SECRET_KEY = os.getenv("SECRET_KEY", "default-secret-key-for-dev")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = "DEV" in os.environ
+DEBUG = True
+#"DEV" in os.environ
 
 ALLOWED_HOSTS = [
-    '8000-noahsamawi-pp5apis-dcnxiuc6e2p.ws-eu111.gitpod.io',
+
+    '8000-noahsamawi-pp5apis-dcnxiuc6e2p.ws-eu114.gitpod.io',
+    '3000-noahsamawi-pp5wanderwis-tz1fm2al702.ws-eu111.gitpod.io',
     'localhost',
     'pp5-apis-e3b849e62ff3.herokuapp.com',
-    'your-production-domain.com',
+    'pp5-wander-wise-frontend-63919ac97d38.herokuapp.com',
 ]
 
 INSTALLED_APPS = [
@@ -96,19 +103,22 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://pp5-wander-wise-frontend-63919ac97d38.herokuapp.com',
-    'https://8000-noahsamawi-pp5apis-dcnxiuc6e2p.ws-eu111.gitpod.io',
-    'https://3000-noahsamawi-pp5wanderwis-tz1fm2al702.ws-eu111.gitpod.io',  # Add this origin
+    'https://8000-noahsamawi-pp5apis-dcnxiuc6e2p.ws-eu114.gitpod.io'
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://pp5-wander-wise-frontend-63919ac97d38.herokuapp.com',
-    'https://8000-noahsamawi-pp5apis-dcnxiuc6e2p.ws-eu111.gitpod.io',
-    'https://3000-noahsamawi-pp5wanderwis-tz1fm2al702.ws-eu111.gitpod.io',  # Add this origin
+CSRF_TRUSTED_ORIGINS = ['https://8000-noahsamawi-pp5apis-dcnxiuc6e2p.ws-eu114.gitpod.io']
+
+if "CLIENT_ORIGIN" in os.environ:
+    client_origin = os.environ.get("CLIENT_ORIGIN")
+    if client_origin not in CORS_ALLOWED_ORIGINS:
+        CORS_ALLOWED_ORIGINS.append(client_origin)
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.gitpod\.io$",
+
 ]
 
 CORS_ALLOW_CREDENTIALS = True
-
-
 ROOT_URLCONF = "pp5_api.urls"
 
 TEMPLATES = [
