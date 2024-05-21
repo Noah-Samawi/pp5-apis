@@ -1,66 +1,76 @@
 from rest_framework import serializers
-
-from likes.models import Like
 from posts.models import Post
-from tags.models import Tag
+from likes.models import Like
+from tags.models import Tags
+from django.contrib.humanize.templatetags.humanize import naturaltime
 
 
 class PostSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source="owner.username")
+    owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
-    profile_id = serializers.ReadOnlyField(source="owner.profile.id")
-    profile_image = serializers.ReadOnlyField(source="owner.profile.image.url")
+    wanderer_id = serializers.ReadOnlyField(source='owner.wanderer.id')
+    wanderer_image = serializers.ReadOnlyField(
+        source='owner.wanderer.image.url')
+    created_at = serializers.SerializerMethodField()
+    updated_at = serializers.SerializerMethodField()
     like_id = serializers.SerializerMethodField()
     likes_count = serializers.ReadOnlyField()
+    tags_id = serializers.SerializerMethodField()
+    tagss_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
-    tag = serializers.SlugRelatedField(
-        queryset=Tag.objects.all(),
-        slug_field='name',
-        allow_null=True
-    )
 
+    # Convert creation and update timt to human readable format
+    def get_created_at(self, obj):
+        return naturaltime(obj.created_at)
+
+    def get_updated_at(self, obj):
+        return naturaltime(obj.updated_at)
+
+    # Validat image size and dimensions
     def validate_image(self, value):
         if value.size > 2 * 1024 * 1024:
-            raise serializers.ValidationError(
-                "Image size larger than 2MB!"
-            )
+            raise serializers.ValidationError('Image size larger than 2MB!')
         if value.image.height > 4096:
             raise serializers.ValidationError(
-                "Image height larger than 4096px!"
+                'Image height larger than 4096px!'
             )
         if value.image.width > 4096:
             raise serializers.ValidationError(
-                "Image width larger than 4096px!"
+                'Image width larger than 4096px!'
             )
         return value
 
+    # Check if the authenticated user is the owner of the post
     def get_is_owner(self, obj):
-        request = self.context["request"]
+        request = self.context['request']
         return request.user == obj.owner
 
+    # Get like ID associated with teh authenticated user and the post
     def get_like_id(self, obj):
-        user = self.context["request"].user
+        user = self.context['request'].user
         if user.is_authenticated:
-            like = Like.objects.filter(owner=user, post=obj).first()
+            like = Like.objects.filter(
+                owner=user, post=obj
+            ).first()
             return like.id if like else None
+        return None
+
+    # Get tags ID associated with the authenticated user and the post
+    def get_tags_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            tags = Tags.objects.filter(
+                owner=user, post=obj
+            ).first()
+            return tags.id if tags else None
         return None
 
     class Meta:
         model = Post
         fields = [
-            "id",
-            "owner",
-            "is_owner",
-            "profile_id",
-            "profile_image",
-            "created_at",
-            "updated_at",
-            "title",
-            "content",
-            "image",
-            "image_filter",
-            "like_id",
-            "likes_count",
-            "comments_count",
-            "tag",
+            'id', 'owner', 'is_owner', 'traveler_id',
+            'traveler_image', 'created_at', 'updated_at',
+            'title', 'content', 'image', 'likes_count',
+            'comments_count', 'like_id', 'tagss_count',
+            'tags_id', 'location', 'country'
         ]

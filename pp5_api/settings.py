@@ -75,15 +75,14 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'dj_rest_auth',
     'dj_rest_auth.registration',
-    "corsheaders",
+    'corsheaders',
 
-    'profiles',
+    'wanderers',
     'posts',
     'comments',
     'likes',
     'followers',
-    'notifications',
-    'tags',
+    'tags'
 ]
 
 SITE_ID = 1
@@ -107,6 +106,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = ['https://8000-noahsamawi-pp5apis-dcnxiuc6e2p.ws-eu114.gitpod.io']
+
 
 if "CLIENT_ORIGIN" in os.environ:
     client_origin = os.environ.get("CLIENT_ORIGIN")

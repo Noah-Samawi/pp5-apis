@@ -1,29 +1,28 @@
-import logging
-
 from rest_framework import generics, permissions
-
 from pp5_api.permissions import IsOwnerOrReadOnly
-
 from .models import Follower
 from .serializers import FollowerSerializer
 
-logger = logging.getLogger(__name__)
-
 
 class FollowerList(generics.ListCreateAPIView):
+    """
+    List all followers.
+    Create a follower if logged in.
+    """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Follower.objects.all()
     serializer_class = FollowerSerializer
 
     def perform_create(self, serializer):
-        try:
-            serializer.save(owner=self.request.user)
-        except Exception as e:
-            logger.error(f"Error in creating follower: {e}")
-            raise
+        serializer.save(owner=self.request.user)
 
 
 class FollowerDetail(generics.RetrieveDestroyAPIView):
+    """
+    Retrieve a follower.
+    No Update view, as we either follow or unfollow users.
+    Destroy/unfollow if owner.
+    """
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Follower.objects.all()
     serializer_class = FollowerSerializer
