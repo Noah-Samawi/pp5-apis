@@ -1,9 +1,10 @@
 from pathlib import Path
 import os
+import re
 import dj_database_url
 
 if os.path.exists('env.py'):
-    import env as env
+    import env
 
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
@@ -21,16 +22,14 @@ REST_FRAMEWORK = {
         if 'DEV' in os.environ
         else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     )],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 30,
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
     'DATETIME_FORMAT': '%d %b %Y',
 }
 if 'DEV' not in os.environ:
-    REST_FRAMEWORK['DEFAULT_RENDERE_CLASSES'] = [
-        'rest_framework.rendererd.JSONRenderer',
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
     ]
 
 REST_USE_JWT = True
@@ -40,13 +39,19 @@ JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
 
 REST_AUTH_SERIALIZERS = {
-    "USER_DETAILS_SERIALIZER": "pp5_api.serializers.CurrentUserSerializer"
+    'USER_DETAILS_SERIALIZER': 'backend.serializers.CurrentUserSerializer'
 }
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-DEBUG = True
-#"DEV" in os.environ
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = 'DEV' in os.environ
+#DEBUG = True
+
 
 ALLOWED_HOSTS = [
 
@@ -56,6 +61,23 @@ ALLOWED_HOSTS = [
     'pp5-apis-e3b849e62ff3.herokuapp.com',
     'pp5-wander-wise-frontend-63919ac97d38.herokuapp.com',
 ]
+
+if 'CLIENT_ORIGIN' in os.environ:
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CLIENT_ORIGIN')
+    ]
+
+if 'CLIENT_ORIGIN_DEV' in os.environ:
+    extracted_url = re.match(
+        r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE
+    ).group(0)
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
+    ]
+
+CORS_ALLOW_CREDENTIALS = True
+
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -108,17 +130,6 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = ['https://8000-noahsamawi-pp5apis-dcnxiuc6e2p.ws-eu114.gitpod.io']
 
 
-if "CLIENT_ORIGIN" in os.environ:
-    client_origin = os.environ.get("CLIENT_ORIGIN")
-    if client_origin not in CORS_ALLOWED_ORIGINS:
-        CORS_ALLOWED_ORIGINS.append(client_origin)
-
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://.*\.gitpod\.io$",
-
-]
-
-CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = "pp5_api.urls"
 
 TEMPLATES = [
@@ -137,19 +148,21 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'pp5_api.wsgi.application'
 
-if 'DEV' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-    }
+# Database
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+
+iDATABASES = {
+    'default': ({
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    } if 'DEV' in os.environ else dj_database_url.parse(
+        os.environ.get('DATABASE_URL')
+    ))
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -181,26 +194,26 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'DEBUG',
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'root': {
+#         'handlers': ['console'],
+#         'level': 'DEBUG',
+#     },
+# }
 
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
-    SECURE_HSTS_SECONDS = 3600
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
+# if not DEBUG:
+#     SECURE_SSL_REDIRECT = True
+#     CSRF_COOKIE_SECURE = True
+#     SESSION_COOKIE_SECURE = True
+#     SECURE_HSTS_SECONDS = 3600
+#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+#     SECURE_HSTS_PRELOAD = True
+#     SECURE_BROWSER_XSS_FILTER = True
+#     SECURE_CONTENT_TYPE_NOSNIFF = True
