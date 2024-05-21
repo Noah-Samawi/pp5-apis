@@ -7,18 +7,21 @@ from .settings import (
 
 
 @api_view()
-# Route for API root. Responds with a welcome message
 def root_route(request):
+    """
+    Route for API root. Responds with a welcome message
+    """
     return Response({
         "message": "Welcome to my Travel Ticker API!"
     })
 
 
-# dj-rest-auth logout view fix
 @api_view(['POST'])
 def logout_route(request):
-    # Custom logout route. Deletes JWT_AUTH_COOKIE and
-    # JWT_AUTH_REFRESH_COOKIE from client.
+    """
+    Custom logout route. Deletes JWT_AUTH_COOKIE and
+    JWT_AUTH_REFRESH_COOKIE from client.
+    """
     response = Response()
 
     # Set JWT_AUTH_COOKIE to an expired date,
