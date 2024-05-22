@@ -60,8 +60,8 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-#'DEV' in os.environ
+#DEBUG = True
+DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = [
     '8000-noahsamawi-pp5apis-5r1sq2rva56.ws-eu114.gitpod.io',
