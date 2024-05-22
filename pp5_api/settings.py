@@ -74,6 +74,7 @@ ALLOWED_HOSTS = [
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     'https://8000-noahsamawi-pp5apis-5r1sq2rva56.ws-eu114.gitpod.io',
+    'https://3000-noahsamawi-pp5wanderwis-u9xoljubsv7.ws-eu114.gitpod.io'
 ]
 
 
