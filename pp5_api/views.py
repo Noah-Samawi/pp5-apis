@@ -1,3 +1,5 @@
+from django.http import HttpResponseForbidden
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .settings import (
@@ -5,16 +7,12 @@ from .settings import (
     JWT_AUTH_SECURE,
 )
 
-
 @api_view()
 def root_route(request):
     """
-    Route for API root. Responds with a welcome message
+    Route for API root. Responds with a welcome message.
     """
-    return Response({
-        "message": "Welcome to my Travel Ticker API!"
-    })
-
+    return Response({"message": "This is my Portfolio project 5's API"})
 
 @api_view(['POST'])
 def logout_route(request):
@@ -25,7 +23,7 @@ def logout_route(request):
     response = Response()
 
     # Set JWT_AUTH_COOKIE to an expired date,
-    # effectively removing it from client.
+    # effectively removing it from the client.
     response.set_cookie(
         key=JWT_AUTH_COOKIE,
         value='',
@@ -37,7 +35,7 @@ def logout_route(request):
     )
 
     # Set JWT_AUTH_REFRESH_COOKIE to an expired date,
-    # effectively removing it from client.
+    # effectively removing it from the client.
     response.set_cookie(
         key=JWT_AUTH_REFRESH_COOKIE,
         value='',
@@ -48,3 +46,9 @@ def logout_route(request):
         secure=JWT_AUTH_SECURE,
     )
     return response
+
+def csrf_failure_view(request, reason=""):
+    """
+    View function to handle CSRF verification failure.
+    """
+    return HttpResponseForbidden("CSRF verification failed.")
