@@ -21,19 +21,17 @@ from .views import root_route, logout_route
 
 
 urlpatterns = [
-    path("", root_route),
-    path("admin/", admin.site.urls),
-    path("api-auth/", include("rest_framework.urls")),
-    path("dj-rest-auth/logout/", logout_route),
-    path("dj-rest-auth/", include("dj_rest_auth.urls")),
-    path("dj-rest-auth/registration/", include(
-        "dj_rest_auth.registration.urls"
-        )
-    ),
-    path("", include("wanderers.urls")),  # Includes URLs from wanderers app
-    path("", include("posts.urls")),  # Includes URLs from posts app
-    path("", include("comments.urls")),  # Includes URLs from comments app
-    path("", include("followers.urls")),  # Includes URLs from followers app
-    path("", include("likes.urls")),  # Includes URLs from likes app
-    path("", include("tags.urls")),  # Includes URLs from tags app
+    path('', root_route),
+    path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
+    path('dj-rest-auth/logout/', logout_route),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    path(
+        'dj-rest-auth/registration/',
+        include('dj_rest_auth.registration.urls')),
+    path("", include("wanderers.urls")),
+    path("", include("posts.urls")),
+    path("", include("comments.urls")),
+    path("", include("followers.urls")),
+    path("", include("likes.urls")),
 ]
