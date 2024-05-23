@@ -16,7 +16,7 @@ class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.annotate(
         likes_count=Count('likes', distinct=True),
         comments_count=Count('comment', distinct=True),
-        tagss_count=Count('tags', distinct=True)
+        countrysides_count=Count('countryside', distinct=True)
     ).order_by('-created_at')
 
     # Define filter backends for ordering, searching and filtering
@@ -30,7 +30,7 @@ class PostList(generics.ListCreateAPIView):
     filterset_fields = [
         'owner__followed__owner__wanderer',
         'likes__owner__wanderer',
-        'tags__owner__wanderer',
+        'countryside__owner__wanderer',
         'owner__wanderer',
     ]
 
@@ -45,9 +45,9 @@ class PostList(generics.ListCreateAPIView):
     ordering_fields = [
         'likes_count',
         'comments_count',
-        'tagss_count',
+        'countrysides_count',
         'likes__created_at',
-        'tagss__created_at',
+        'countrysides__created_at',
     ]
 
     def perform_create(self, serializer):
@@ -64,5 +64,5 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.annotate(
         likes_count=Count('likes', distinct=True),
         comments_count=Count('comment', distinct=True),
-        tagss_count=Count('tags', distinct=True)
+        countrysides_count=Count('countryside', distinct=True)
     ).order_by('-created_at')

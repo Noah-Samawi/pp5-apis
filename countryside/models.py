@@ -3,13 +3,13 @@ from django.contrib.auth.models import User
 from posts.models import Post
 
 
-class Tags(models.Model):
+class Countryside(models.Model):
     """
-    Tags model with a foreign key to user
+    Countryside model with a foreign key to user
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(
-        Post, related_name='tags', on_delete=models.CASCADE
+        Post, related_name='countryside', on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
 

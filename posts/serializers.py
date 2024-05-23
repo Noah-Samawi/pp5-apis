@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from posts.models import Post
 from likes.models import Like
-from tags.models import Tags
+from countryside.models import Countryside
 from django.contrib.humanize.templatetags.humanize import naturaltime
 
 
@@ -15,8 +15,8 @@ class PostSerializer(serializers.ModelSerializer):
     updated_at = serializers.SerializerMethodField()
     like_id = serializers.SerializerMethodField()
     likes_count = serializers.ReadOnlyField()
-    tags_id = serializers.SerializerMethodField()
-    taggss_count = serializers.ReadOnlyField()
+    countryside_id = serializers.SerializerMethodField()
+    # taggss_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
 
     # Convert creation and update timt to human readable format
@@ -55,14 +55,14 @@ class PostSerializer(serializers.ModelSerializer):
             return like.id if like else None
         return None
 
-    # Get tags ID associated with the authenticated user and the post
-    def get_tags_id(self, obj):
+    # Get countryside ID associated with the authenticated user and the post
+    def get_countryside_id(self, obj):
         user = self.context['request'].user
         if user.is_authenticated:
-            tags = Tags.objects.filter(
+            countryside = Countryside.objects.filter(
                 owner=user, post=obj
             ).first()
-            return tags.id if tags else None
+            return countryside.id if countryside else None
         return None
 
     class Meta:
@@ -71,6 +71,6 @@ class PostSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'wanderer_id',
             'wanderer_image', 'created_at', 'updated_at',
             'title', 'content', 'image', 'likes_count',
-            'comments_count', 'like_id', 'tagss_count',
+            'comments_count', 'like_id', 'countrysides_count',
             'tages_id', 'location', 'country'
         ]

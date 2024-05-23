@@ -1,17 +1,18 @@
+
 from rest_framework import serializers
-from .models import Tags
+from .models import Countryside
 from django.db import IntegrityError
 
 
-class TagsSerializer(serializers.ModelSerializer):
+class CountrysideSerializer(serializers.ModelSerializer):
     """
-    Serializer for the tags model
+    Serializer for the countryside model
     The create method handles the unique constraint on 'owner' and 'post'
     """
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
-        model = Tags
+        model = Countryside
         fields = ['id', 'created_at', 'owner', 'post']
 
     def create(self, validated_data):
