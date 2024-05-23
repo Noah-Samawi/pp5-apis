@@ -38,6 +38,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DATETIME_FORMAT': '%d %b %Y',
 }
+
 if 'DEV' not in os.environ:
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
         'rest_framework.renderers.JSONRenderer',
@@ -71,15 +72,10 @@ ALLOWED_HOSTS = [
     'pp5-wander-wise-frontend-63919ac97d38.herokuapp.com',
 ]
 
-# CORS_ALLOWED_ORIGINS = [
-#     'https://8000-noahsamawi-pp5apis-5r1sq2rva56.ws-eu114.gitpod.io',
-#     'https://3000-noahsamawi-pp5wanderwis-u9xoljubsv7.ws-eu114.gitpod.io'
-# ]
+CORS_ALLOWED_ORIGINS = []
 
 if 'CLIENT_ORIGIN' in os.environ:
-    CORS_ALLOWED_ORIGINS = [
-        os.environ.get('CLIENT_ORIGIN')
-    ]
+    CORS_ALLOWED_ORIGINS.append(os.environ.get('CLIENT_ORIGIN'))
 
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     extracted_url = re.match(
@@ -122,6 +118,7 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -152,8 +149,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'pp5_api.wsgi.application'
-
-
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -197,7 +192,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
