@@ -66,7 +66,7 @@ DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = [
     '8000-noahsamawi-pp5apis-5r1sq2rva56.ws-eu114.gitpod.io',
-    '3000-noahsamawi-pp5wanderwis-tz1fm2al702.ws-eu111.gitpod.io',
+    '3000-noahsamawi-pp5wanderwis-31n2z4g79hg.ws-eu114.gitpod.io',
     'localhost',
     'pp5-apis-e3b849e62ff3.herokuapp.com',
     'pp5-wander-wise-frontend-63919ac97d38.herokuapp.com',
@@ -74,7 +74,7 @@ ALLOWED_HOSTS = [
 
 CORS_ALLOWED_ORIGINS = [
     'https://8000-noahsamawi-pp5apis-5r1sq2rva56.ws-eu114.gitpod.io',
-    'https://3000-noahsamawi-pp5wanderwis-u9xoljubsv7.ws-eu114.gitpod.io'
+    'https://3000-noahsamawi-pp5wanderwis-31n2z4g79hg.ws-eu114.gitpod.io'
 ]
 
 if 'CLIENT_ORIGIN' in os.environ:
