@@ -12,7 +12,7 @@ class Wanderer(models.Model):
     name = models.CharField(max_length=100, blank=True)
     content = models.CharField(max_length=200, blank=True)
     image = models.ImageField(
-        upload_to='images/', default='../default_profileimage_abyxmi'
+        upload_to='images/', default='../default_profile_vm4gvx'
     )
     one_important_thing = models.CharField(max_length=200, blank=True)
     favorite_place = models.CharField(max_length=200, blank=True)
