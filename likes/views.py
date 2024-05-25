@@ -1,3 +1,4 @@
+from rest_framework.exceptions import ValidationError
 from rest_framework import generics, permissions
 from pp5_api.permissions import IsOwnerOrReadOnly
 from .models import Like
@@ -14,7 +15,16 @@ class LikeList(generics.ListCreateAPIView):
     queryset = Like.objects.all()
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        user = self.request.user
+        post = serializer.validated_data.get('post')
+        comment = serializer.validated_data.get('comment')
+
+        if post and Like.objects.filter(owner=user, post=post).exists():
+            raise ValidationError('You have already liked this post.')
+        if comment and Like.objects.filter(owner=user, comment=comment).exists():
+            raise ValidationError('You have already liked this comment.')
+
+        serializer.save(owner=user)
 
 
 class LikeDetail(generics.RetrieveDestroyAPIView):
