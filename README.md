@@ -1,112 +1,130 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+![Logo](/docs/logo.jpg)
+# Wander Wise API Documentation
 
-Welcome Noah Al-Samawi,
+Welcome to the Wander Wise API documentation. This readme provides information about the API endpoints and functionalities. For the documentation of the Wander Wise web app, please visit the following link: [Wander Wise Repository](https://pp5-apis-e3b849e62ff3.herokuapp.com/).
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+## Table of Content
+- [Database](#database)
+  * [Countryside:](#countryside-)
+  * [Comment:](#comment-)
+  * [Follower:](#follower-)
+  * [Like:](#like-)
+  * [Post:](#post-)
+  * [Wanderer:](#wanderer-)
+- [Bugs](#bugs)
+  * [Known bugs](#known-bugs)
+- [Error Handling](#error-handling) 
+- [Testing](#testing)
+  * [Languages](#languages)
+  * [Frameworks](#frameworks)
+  * [Database](#database-1)
+  * [Tools](#tools)
+  * [Supporting Libraries and Packages](#supporting-libraries-and-packages)
+- [Deployment](#deployment)
+  * [Django Documentation:](#django-documentation-)
 
-You can safely delete this README.md file or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **April 26, 2024**
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
-## Gitpod Reminders
+## Database
+The Travel Tickr utilizes the following database schema:
+<details><summary>See Database Schema</summary>
+<img src="/docs/database-diagram.png">
+</details> <br>
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+### Countryside: 
+This model represents the list of posts that a user wants to keep track of. It is related to the User model (as the owner of the countryside) and the Post model. 
 
-`python3 -m http.server`
+### Comment: 
+This model represents comments made by users. It is associated with the User model (as the owner of the comment) and the Post model. In addition to the content of the comment, it keeps track of the times when each comment was created and last updated.
 
-A blue button should appear to click: _Make Public_,
+### Follower: 
+This model maintains the follower-following relationships between users. It is related to the User model twice, once for the owner of the follow (the follower) and once for the followed user. A timestamp of each follow event is also stored.
 
-Another blue button should appear to click: _Open Browser_.
+### Like: 
+This model captures the likes given by users either to a post or a comment. It is linked to the User, Post, and Comment models. It also records the time when each like event was created.
 
-To run a backend Python file, type `python3 app.py` if your Python file is named `app.py`, of course.
+### Post: 
+This model represents the posts made by users. It is related to the User model as the owner of the post. It keeps track of the times when each post was created and last updated, along with the content of the post including the title, image, and location information.
 
-A blue button should appear to click: _Make Public_,
+### Wanderer: 
+This model extends the User model with additional wanderer-specific information such as their name, profile image, and other personal details. It also keeps timestamps of when each wanderer profile was created and last updated. The creation of a Wanderer object is automatically triggered by the creation of a User object, thanks to the post_save signal connected to the create_wanderer function.
 
-Another blue button should appear to click: _Open Browser_.
+Each of these models serves a unique purpose and together they support a range of features in your application, from user registration and social networking to content creation and curation.
 
-By Default, Gitpod gives you superuser security privileges. Therefore, you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+## Bugs
 
-To log into the Heroku toolbelt CLI:
+### Known bugs
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+| **Bug** | **Status** |
+| ----------- | ----------- |
+| [iPhone X log in](https://github.com/Noah-Samawi/pp5-apis/issues/1)| A recognized issue exists in the initial codebase. |
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you, so do not share it. If you accidentally make it public, you can create a new one with _Regenerate API Key_.
+## Error Handling
+Our API uses standard HTTP status codes to indicate the success or failure of an API request:
+- `200 OK`: Successful request.
+- `201 Created`: Resource created successfully.
+- `400 Bad Request`: The server cannot process the request due to client error.
+- `401 Unauthorized`: Authentication is required and has failed or not been provided.
+- `403 Forbidden`: The user does not have the necessary permissions.
+- `404 Not Found`: The requested resource is not found.
+- `500 Internal Server Error`: Unexpected condition encountered on the server.
 
-------
 
-## Release History
+| **Bug** | **Fix** |
+| ----------- | ----------- |
+|[Submit issue with registration form]()|Correct CORS settings|
+|[Can't follow some wanderers]()|See details and steps in link to issue|
+|[Likes_count showing NaN in comments]()|Correct connection in queryset for comments|
+|[Filter function is not working]()|Added filter used in frontend|
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
 
-**April 26 2024:** Update node version to 16
+[Back up](#table-of-content)
 
-**September 20 2023:** Update Python version to 3.9.17.
+## Testing
+All tests for the Wander Wise API have been passed, demonstrating its readiness for deployment and public use. See [full testing documentation]().
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+### Languages
+- Python
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+### Frameworks
+- Django: A high-level Python web framework used for building the Wander Wise API.
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+### Database
+- ElephantSQL: ElephantSQL is a PostgreSQL database as a service. It is used as the database for the Wander Wise project, providing a reliable and scalable storage solution for the application's data.
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+### Tools
+- Git: A distributed version control system used for tracking changes in the project's source code.
+- GitHub: A web-based hosting service for version control repositories, used for storing and managing the project's source code.
+- Gitpod: An online integrated development environment (IDE) used for developing and testing the Wander Wise project.
+- Heroku: A cloud platform that enables deployment and hosting of web applications. Heroku was used for deploying the Wander Wise project to a live server.
+- Adobe Photoshop: A professional image editing software used for advanced image manipulation and design in the Wander Wise project.
+- Lucidchart: Lucidchart is a web-based diagramming tool that offers a wide range of diagramming capabilities, including ER diagrams. It provides an intuitive interface and collaboration features, making it suitable for both individual and team use.
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+### Supporting Libraries and Packages
+- asgiref: A server gateway interface for Django, it acts as a translation layer between the web server and Django.
+- cloudinary, django-cloudinary-storage: Used for managing the storage and delivery of images through Cloudinary, a cloud-based service.
+- dj-database-url: Utility to help you load your database into your dictionary from the DATABASE_URL environment variable.
+- dj-rest-auth, Django-allauth, djangorestframework-simplejwt, PyJWT, oauthlib, requests-oauthlib, python3-openid: These libraries are used for managing user authentication, providing support for JWT tokens, OAuth and OpenID.
+- Django, djangorestframework, django-filter: These are core components of the Django web framework, used for building the backend of the Wander Wise application.
+- gunicorn: A Python WSGI HTTP server for UNIX, used in deploying the application.
+- Pillow: An imaging library in Python, allowing support for opening, manipulating, and saving many different image file formats.
+- psycopg2: PostgreSQL adapter for Python, enabling Python to connect to the PostgreSQL database.
+- pytz: A Python library that enables accurate and cross-platform timezone calculations.
+- sqlparse: A non-validating SQL parser module for Python, it provides support for parsing, splitting and formatting SQL statements.
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+## Deployment
+Deploying the Django backend of the Wander Wise application involves below steps:
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+1. **Create Required Accounts**: If you haven't done so yet, create accounts on Heroku, ElephantSQL, and Cloudinary. These services are necessary for hosting the application, managing the database, and storing images, respectively.
+2. **Prepare the Application**: Set DEBUG to False in the settings.py file, which ensures that the application runs in production mode during deployment. Commit all changes and push your code to your GitHub repository.
+3. **Create a New Application on Heroku**: From your Heroku dashboard, create a new application and select the appropriate region.
+4. **Set Environment Variables**: In your local env.py file, set your environment variables including the ElephantSQL URL, Cloudinary URL, and Django Secret Key. These variables should also be added to your Heroku app settings under the Config Vars section. This ensures that these services can communicate with your Heroku app.
+5. **Database Management**: Ensure that all database migrations have been made and the current state of your models is reflected in the database schema. The command python manage.py makemigrations and python manage.py migrate are usually used for this purpose in Django.
+6. **Deployment Process**: In your Heroku dashboard, go to your application's deploy page. Connect your GitHub repository to your Heroku application under the "Deployment method" section. Under the "Manual deploy" section, select the branch you want to deploy and click "Deploy Branch".
+7. **Verify Deployment**: Once the deployment is successful, Heroku will provide a URL to access the live application. Test the application to ensure all components are functioning properly.
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+Remember to avoid exposing your environment variables in your public repository. Use the Config Vars section in Heroku to securely set your environment variables.
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
+### Django Documentation:
+[django-versatileimagefield - Custom filters](https://django-versatileimagefield.readthedocs.io/en/2.1/writing_custom_sizers_and_filters.html)
+[Pillow - Image module ](https://pillow.readthedocs.io/en/stable/reference/Image.html)
