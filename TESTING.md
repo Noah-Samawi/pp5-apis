@@ -10,19 +10,21 @@ The testing.md file provides an overview of the testing conducted on Wander Wise
 ### Code Validation 
 [PEP 8](https://pep8ci.herokuapp.com/) is a style guide for writing Python code to ensure consistency and readability. It provides guidelines on how to format code, naming conventions for variables and functions, and other best practices. Following PEP 8 helps to improve code quality, readability, and maintainability.
 
-#### Pp5-api
+#### Pp5-api backend
 | **Tested** | **Result** | **View Result** | **Pass** |
 --- | --- | --- | :---:
-|serializers|No errors|[Result](/docs/testing/Pp5-api/serializers.png)| :white_check_mark:
-|settings|No errors|[Result](/docs/testing/Pp5-api/settings.png)| :white_check_mark:
-|urls|No errors|[Result](/docs/testing/Pp5-api/urls.png)| :white_check_mark:
-|views|No errors|[Result](/docs/testing/Pp5-api/views.png)| :white_check_mark:
+|serializers|No errors|[Result](/docs/testing/backend/serializers.png)| :white_check_mark:
+|settings|No errors|[Result](/docs/testing/backend/settings.png)| :white_check_mark:
+|urls|No errors|[Result](/docs/testing/backend/urls.png)| :white_check_mark:
+|views|No errors|[Result](/docs/testing/backend/views.png)| :white_check_mark:
+
 
 #### Countryside
 | **Tested** | **Result** | **View Result** | **Pass** |
 --- | --- | --- | :---:
 |models|No errors|[Result](/docs/testing/countryside/models.png)| :white_check_mark:
 |serializers|No errors|[Result](/docs/testing/countryside/serializers.png)| :white_check_mark:
+|tests|No errors|[Result](/docs/testing/wanderers/tests.png)| :white_check_mark:
 |urls|No errors|[Result](/docs/testing/countryside/urls.png)| :white_check_mark:
 |views|No errors|[Result](/docs/testing/countryside/views.png)| :white_check_mark:
 
@@ -31,6 +33,7 @@ The testing.md file provides an overview of the testing conducted on Wander Wise
 --- | --- | --- | :---:
 |models|No errors|[Result](/docs/testing/comments/models.png)| :white_check_mark:
 |serializers|No errors|[Result](/docs/testing/comments/serializers.png)| :white_check_mark:
+|tests|No errors|[Result](/docs/testing/comments/tests.png)| :white_check_mark:
 |urls|No errors|[Result](/docs/testing/comments/urls.png)| :white_check_mark:
 |views|No errors|[Result](/docs/testing/comments/views.png)| :white_check_mark:
 
@@ -39,6 +42,7 @@ The testing.md file provides an overview of the testing conducted on Wander Wise
 --- | --- | --- | :---:
 |models|No errors|[Result](/docs/testing/followers/models.png)| :white_check_mark:
 |merializers||[Result](/docs/testing/followers/serializers.png)| :white_check_mark:
+|tests|No errors|[Result](/docs/testing/followers/tests.png)| :white_check_mark:
 |urls|No errors|[Result](/docs/testing/followers/urls.png)| :white_check_mark:
 |views|No errors|[Result](/docs/testing/followers/views.png)| :white_check_mark:
 
@@ -47,6 +51,7 @@ The testing.md file provides an overview of the testing conducted on Wander Wise
 --- | --- | --- | :---:
 |models|No errors|[Result](/docs/testing/likes/models.png)| :white_check_mark:
 |merializers|No errors|[Result](/docs/testing/likes/serializers.png)| :white_check_mark:
+|tests|No errors|[Result](/docs/testing/likes/tests.png)| :white_check_mark:
 |urls|No errors|[Result](/docs/testing/likes/urls.png)| :white_check_mark:
 |views|No errors|[Result](/docs/testing/likes/views.png)| :white_check_mark:
 
@@ -86,18 +91,21 @@ To run the tests, navigate to the main directory of the project and execute the 
 ```bash
 python manage.py test 
 ```
+Upon successful execution of the tests, you should see output similar to the following:
+```bash
 Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
-............{'id': 1, 'created_at': '27 May 2024', 'owner': 'user1', 'post': 1, 'comment': None}
+............{'id': 1, 'created_at': '28 May 2024', 'owner': 'user1', 'post': 1, 'comment': None}
 .204
-.OrderedDict({'count': 1, 'next': None, 'previous': None, 'results': [OrderedDict({'id': 1, 'created_at': '27 May 2024', 'owner': 'user1', 'post': 1, 'comment': None})]})
+.OrderedDict({'count': 1, 'next': None, 'previous': None, 'results': [OrderedDict({'id': 1, 'created_at': '28 May 2024', 'owner': 'user1', 'post': 1, 'comment': None})]})
 .[ErrorDetail(string='You have already liked this post.', code='invalid')]
 ..
 ----------------------------------------------------------------------
-Ran 17 tests in 4.110s
+Ran 17 tests in 4.161s
 
 OK
 Destroying test database for alias 'default'...
+```
 
 This signifies that all tests have passed successfully. If any test fails, the output will clearly specify which test failed and the reason to failure. If you see an output similar to the above, it means your setup is working as expected. 
 
@@ -147,8 +155,8 @@ These manual testing steps were undertaken to validate the correct functioning a
 - Searching for Title, Wanderer and Country is working as expected.
 
 ### Summary
-The testing process for the Travel Tickr API has been exhaustive and meticulous, reinforcing the robustness and reliability of the platform. Python's best coding practices were upheld by utilizing the PEP 8 tool to check for errors in each application module.
+The testing process for the Wander Wise API has been exhaustive and meticulous, reinforcing the robustness and reliability of the platform. Python's best coding practices were upheld by utilizing the PEP 8 tool to check for errors in each application module.
 
 Automated testing has been a critical part of the process, covering key functionalities such as post listing, post creation, post retrieval, post updates, and user-wanderer consistency.
 
-All tests for the Travel Tickr API have been passed, demonstrating its readiness for deployment and public use. For a detailed account of the front-end testing, please  [click here](https://github.com/Noah-Samawi/pp5-apis/blob/main/TESTING.md).
+All tests for the Wander Wise API have been passed, demonstrating its readiness for deployment and public use. For a detailed account of the front-end testing, please  [click here](https://github.com/Noah-Samawi/pp5-apis/blob/main/TESTING.md).

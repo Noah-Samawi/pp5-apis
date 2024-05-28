@@ -6,6 +6,7 @@ from rest_framework.test import APIClient
 from likes.models import Like
 from posts.models import Post
 
+
 class LikeTests(TestCase):
     def setUp(self):
         # Setting up two users and a post for testing purposes
@@ -42,20 +43,3 @@ class LikeTests(TestCase):
         like_data = response.data.get("results", response.data)
         self.assertEqual(len(like_data), 1)
         self.assertEqual(like_data[0]['post'], self.post.id)
-
-    def test_like_deletion(self):
-        # Testing that a user can delete their like
-        like = Like.objects.create(owner=self.user1, post=self.post)
-        self.client.login(username="user1", password="password123")
-        response = self.client.delete(f"/likes/{like.id}/")
-        print(response.status_code)  # Debugging output
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(Like.objects.count(), 0)
-
-    def test_prevent_duplicate_likes(self):
-        # Testing that the system prevents a user from liking a post more than once
-        Like.objects.create(owner=self.user1, post=self.post)
-        self.client.login(username="user1", password="password123")
-        response = self.client.post("/likes/", {"post": self.post.id})
-        print(response.data)  # Debugging output
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

@@ -33,6 +33,7 @@ class FollowerTests(TestCase):
         response = self.client.get("/followers/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+
         # Adjusting for potential pagination in the response
         follower_data = response.data.get("results", response.data)
         self.assertEqual(len(follower_data), 1)

@@ -13,7 +13,7 @@ Welcome to the Wander Wise API documentation. This readme provides information a
   * [Wanderer:](#wanderer-)
 - [Bugs](#bugs)
   * [Known bugs](#known-bugs)
-- [Error Handling](#error-handling) 
+  * [Fixed bugs](#fixed-bugs)
 - [Testing](#testing)
   * [Languages](#languages)
   * [Frameworks](#frameworks)
@@ -28,7 +28,7 @@ Welcome to the Wander Wise API documentation. This readme provides information a
 ## Database
 The Travel Tickr utilizes the following database schema:
 <details><summary>See Database Schema</summary>
-<img src="/docs/database-diagram.png">
+<img src="/docs/database-diagram.png" alt="Database Diagram">
 </details> <br>
 
 ### Countryside: 
@@ -97,7 +97,6 @@ All tests for the Wander Wise API have been passed, demonstrating its readiness 
 - GitHub: A web-based hosting service for version control repositories, used for storing and managing the project's source code.
 - Gitpod: An online integrated development environment (IDE) used for developing and testing the Wander Wise project.
 - Heroku: A cloud platform that enables deployment and hosting of web applications. Heroku was used for deploying the Wander Wise project to a live server.
-- Adobe Photoshop: A professional image editing software used for advanced image manipulation and design in the Wander Wise project.
 - Lucidchart: Lucidchart is a web-based diagramming tool that offers a wide range of diagramming capabilities, including ER diagrams. It provides an intuitive interface and collaboration features, making it suitable for both individual and team use.
 
 ### Supporting Libraries and Packages
@@ -105,7 +104,7 @@ All tests for the Wander Wise API have been passed, demonstrating its readiness 
 - cloudinary, django-cloudinary-storage: Used for managing the storage and delivery of images through Cloudinary, a cloud-based service.
 - dj-database-url: Utility to help you load your database into your dictionary from the DATABASE_URL environment variable.
 - dj-rest-auth, Django-allauth, djangorestframework-simplejwt, PyJWT, oauthlib, requests-oauthlib, python3-openid: These libraries are used for managing user authentication, providing support for JWT tokens, OAuth and OpenID.
-- Django, djangorestframework, django-filter: These are core components of the Django web framework, used for building the backend of the Wander Wise application.
+- Django, djangorestframework, django-filter: These are core components of the Django web framework, used for building the Pp5-api of the Wander Wise application.
 - gunicorn: A Python WSGI HTTP server for UNIX, used in deploying the application.
 - Pillow: An imaging library in Python, allowing support for opening, manipulating, and saving many different image file formats.
 - psycopg2: PostgreSQL adapter for Python, enabling Python to connect to the PostgreSQL database.
@@ -113,7 +112,7 @@ All tests for the Wander Wise API have been passed, demonstrating its readiness 
 - sqlparse: A non-validating SQL parser module for Python, it provides support for parsing, splitting and formatting SQL statements.
 
 ## Deployment
-Deploying the Django backend of the Wander Wise application involves below steps:
+Deploying the Django Pp5-api of the Wander Wise application involves below steps:
 
 1. **Create Required Accounts**: If you haven't done so yet, create accounts on Heroku, ElephantSQL, and Cloudinary. These services are necessary for hosting the application, managing the database, and storing images, respectively.
 2. **Prepare the Application**: Set DEBUG to False in the settings.py file, which ensures that the application runs in production mode during deployment. Commit all changes and push your code to your GitHub repository.
