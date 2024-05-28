@@ -26,7 +26,7 @@ Welcome to the Wander Wise API documentation. This readme provides information a
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 ## Database
-The Travel Tickr utilizes the following database schema:
+The Wander Wise utilizes the following database schema:
 <details><summary>See Database Schema</summary>
 <img src="/docs/database-diagram.png" alt="Database Diagram">
 </details> <br>

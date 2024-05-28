@@ -128,7 +128,7 @@ These manual testing steps were undertaken to validate the correct functioning a
 | **Tested** | **Expected result** | **Result** | **Pass** |
 --- | --- | --- | :---:
 |Root URL|Show welcome message|Works as expected| :white_check_mark:
-|/countryside|Display bucketslist |Works as expected| :white_check_mark:
+|/countryside|Display countryside |Works as expected| :white_check_mark:
 |/countryside/{id}|Display countryside detail|Works as expected| :white_check_mark:
 |/posts|Display posts list |Works as expected| :white_check_mark:
 |/posts/{id}|Display posts detail|Works as expected| :white_check_mark:
