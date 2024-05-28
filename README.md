@@ -81,7 +81,7 @@ Our API uses standard HTTP status codes to indicate the success or failure of an
 [Back up](#table-of-content)
 
 ## Testing
-All tests for the Wander Wise API have been passed, demonstrating its readiness for deployment and public use. See [full testing documentation]().
+All tests for the Wander Wise API have been passed, demonstrating its readiness for deployment and public use. See [full testing documentation](https://github.com/Noah-Samawi/pp5-apis/blob/main/TESTING.md).
 
 ### Languages
 - Python
