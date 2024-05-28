@@ -86,13 +86,15 @@ To run the tests, navigate to the main directory of the project and execute the 
 ```bash
 python manage.py test 
 ```
-Upon successful execution of the tests, you should see output similar to the following:
-```bash
 Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
-...................
+............{'id': 1, 'created_at': '27 May 2024', 'owner': 'user1', 'post': 1, 'comment': None}
+.204
+.OrderedDict({'count': 1, 'next': None, 'previous': None, 'results': [OrderedDict({'id': 1, 'created_at': '27 May 2024', 'owner': 'user1', 'post': 1, 'comment': None})]})
+.[ErrorDetail(string='You have already liked this post.', code='invalid')]
+..
 ----------------------------------------------------------------------
-Ran 19 tests in 5.082s
+Ran 17 tests in 4.110s
 
 OK
 Destroying test database for alias 'default'...
@@ -103,7 +105,7 @@ This signifies that all tests have passed successfully. If any test fails, the o
 During the manual testing of the API, the following steps were performed:
 1. Ensured that all URL paths were created correctly and functioning without any errors.
 2. Verification of CRUD Functionality:
-- Verified the functionality of Create, Read, Update, and Delete operations for various entities such as posts, countrysides, comments, followers, likes, and wanderers
+- Verified the functionality of Create, Read, Update, and Delete operations for various entities such as posts, countryside, comments, followers, likes, and wanderer
 - Created new items and confirmed the proper functioning of the corresponding URLs
 - Verified the Edit functionality (excluding followers and likes).
 - Tested the delete function to ensure its correctness.
@@ -149,4 +151,4 @@ The testing process for the Travel Tickr API has been exhaustive and meticulous,
 
 Automated testing has been a critical part of the process, covering key functionalities such as post listing, post creation, post retrieval, post updates, and user-wanderer consistency.
 
-All tests for the Travel Tickr API have been passed, demonstrating its readiness for deployment and public use. For a detailed account of the front-end testing, please  [click here]().
+All tests for the Travel Tickr API have been passed, demonstrating its readiness for deployment and public use. For a detailed account of the front-end testing, please  [click here](https://github.com/Noah-Samawi/pp5-apis/blob/main/TESTING.md).
