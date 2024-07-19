@@ -38,7 +38,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DATETIME_FORMAT': '%d %b %Y',
 }
-
 if 'DEV' not in os.environ:
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
         'rest_framework.renderers.JSONRenderer',
@@ -62,7 +61,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
-# DEBUG = True
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '8000-noahsamawi-pp5apis-yptvpzynark.ws-eu115.gitpod.io',
@@ -70,9 +69,7 @@ ALLOWED_HOSTS = [
     'localhost',
     'pp5-apis-e3b849e62ff3.herokuapp.com',
     'https://pp5-wander-wise-frontend-63919ac97d38.herokuapp.com/',
-    '127.0.0.1',
-    '8000-noahsamawi-pp5apis-5r1sq2rva56.ws-eu114.gitpod.io',
-    '3000-noahsamawi-pp5wanderwis-31n2z4g79hg.ws-eu114.gitpod.io'
+    '127.0.0.1'
 ]
 
 
@@ -99,17 +96,17 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'cloudinary_storage',
+    'django.contrib.staticfiles',
     'cloudinary',
     'rest_framework',
     'django_filters',
     'rest_framework.authtoken',
+    'dj_rest_auth',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'dj_rest_auth',
     'dj_rest_auth.registration',
     'corsheaders',
 
@@ -124,7 +121,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 MIDDLEWARE = [
-   'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -132,7 +129,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
 
 ROOT_URLCONF = "pp5_api.urls"
@@ -202,8 +198,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
