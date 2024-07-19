@@ -62,23 +62,24 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
-DEBUG = False
+# DEBUG = True
 
 ALLOWED_HOSTS = [
-    '8000-noahsamawi-pp5apis-5r1sq2rva56.ws-eu114.gitpod.io',
-    '3000-noahsamawi-pp5wanderwis-31n2z4g79hg.ws-eu114.gitpod.io',
+    '8000-noahsamawi-pp5apis-yptvpzynark.ws-eu115.gitpod.io',
+    '3000-noahsamawi-pp5wanderwis-53nofpkjbqc.ws-eu115.gitpod.io',
     'localhost',
     'pp5-apis-e3b849e62ff3.herokuapp.com',
-    'pp5-wander-wise-frontend-63919ac97d38.herokuapp.com',
+    'https://pp5-wander-wise-frontend-63919ac97d38.herokuapp.com/',
+    '127.0.0.1',
+    '8000-noahsamawi-pp5apis-5r1sq2rva56.ws-eu114.gitpod.io',
+    '3000-noahsamawi-pp5wanderwis-31n2z4g79hg.ws-eu114.gitpod.io'
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'https://8000-noahsamawi-pp5apis-5r1sq2rva56.ws-eu114.gitpod.io',
-    'https://3000-noahsamawi-pp5wanderwis-31n2z4g79hg.ws-eu114.gitpod.io'
-]
 
 if 'CLIENT_ORIGIN' in os.environ:
-    CORS_ALLOWED_ORIGINS.append(os.environ.get('CLIENT_ORIGIN'))
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CLIENT_ORIGIN')
+    ]
 
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     extracted_url = re.match(
@@ -123,8 +124,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+   'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -132,6 +132,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = "pp5_api.urls"
