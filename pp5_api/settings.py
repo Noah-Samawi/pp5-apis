@@ -64,7 +64,7 @@ DEBUG = 'DEV' in os.environ
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '8000-noahsamawi-pp5apis-yptvpzynark.ws-eu115.gitpod.io',
+    '8000-noahsamawi-pp5apis-rqwpoaobk38.ws-eu115.gitpod.io',
     '3000-noahsamawi-pp5wanderwis-53nofpkjbqc.ws-eu115.gitpod.io',
     'localhost',
     'pp5-apis-e3b849e62ff3.herokuapp.com',
