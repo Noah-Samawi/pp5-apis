@@ -60,15 +60,15 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEV' in os.environ
+# DEBUG = 'DEV' in os.environ
 DEBUG = False
 
 ALLOWED_HOSTS = [
     '8000-noahsamawi-pp5apis-rqwpoaobk38.ws-eu115.gitpod.io',
-    '3000-noahsamawi-pp5wanderwis-53nofpkjbqc.ws-eu115.gitpod.io',
+    '3000-noahsamawi-pp5wanderwis-x2v19mjuxnr.ws-eu115.gitpod.io',
     'localhost',
     'pp5-apis-e3b849e62ff3.herokuapp.com',
-    'https://pp5-wander-wise-frontend-63919ac97d38.herokuapp.com/',
+    'https://pp5-apis-e3b849e62ff3.herokuapp.com/admin/',
     '127.0.0.1'
 ]
 
@@ -121,7 +121,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 MIDDLEWARE = [
-
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -131,6 +131,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = "pp5_api.urls"
 
@@ -198,9 +199,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'  # The URL to use when referring to static files
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # List of directories where Django will look for additional static files
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # The directory where static files will be collected
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
